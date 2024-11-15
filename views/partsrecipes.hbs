@@ -1,0 +1,92 @@
+<body onload="browsePeople()">
+<h1>PartsRecipes</h1>
+
+[ <a href="partsRecipes">PartsRecipes</a> | <a href="items">Parts</a> | <a href="machines">Machines</a> | <a href="recipes">Recipes</a> ]
+
+<div id="browse">
+<table id="PRecipeTable" border="1" cellpadding="5">
+  <tr>
+    <th><button onClick="newItem()">New</button></th>
+    <th>Delete Recipe</th>
+    <th>Part Produced</th>
+    <th>Production Rate</th>
+    <th>Alternate Recipe</th>
+    <th>Machine</th>
+    <th>Input Rate</th>
+    <th>Input Part</th>
+  </tr>  
+  {{#each data}}
+  <tr data-value = {{this.PartsRecipeID}}>
+    <td><button onClick="showPartsRecipesupdate({{this.PartsRecipeID}},{{this.[Part Consumption Rate]}})">Edit</button></td>
+    <td><button onclick="showDeletePR('{{this.PartsRecipeID}}')">Delete</button></td>
+    <td>{{this.[Part Produced]}}</td>
+    <td>{{this.[Production Rate]}}</td>
+    <td>{{this.[Alternate Recipe]}}</td>
+    <td>{{this.Machine}}</td>
+    <td>{{this.[Part Consumption Rate]}}</td>
+    <td>{{this.[Input Part]}}</td>
+  </tr>
+  {{/each}}
+  </table>
+</div> <!-- browse -->
+
+<!-- insert -->
+<div id="insert">
+  <legend><strong>Add PartsRecipes</strong></legend>
+  <fieldset class="fields">
+    <form id="addPR-ajax">      
+      <select name="input-PR-recipe-ajax" id="input-PR-recipe-ajax">
+          <option recipe-value="">Select a recipes</option>
+          {{#each recipes}}
+          <option value="{{this.RecipeID}}">{{this.RecipeID}}</option>
+          {{/each}}
+        </select>
+      <label>Input Rate</label> <input type="text" id="input-rate" name="InputRate">
+      <select name="input-RP-part-ajax" id="input-RP-part-ajax">
+        <option parts-value="">Select a input Part</option>
+        {{#each parts}}
+        <option value="{{this.PartID}}">{{this.PartName}}</option>
+        {{/each}}
+      </select>
+      <input class="btn" type="submit" id="addPRBtn" value="Add the PR">
+      <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div>
+
+<!-- update -->
+<p>&nbsp;</p>
+<div id="update">
+  <h2>Update PartsRecipes</h2>
+    <form id="updatePR-ajax">
+      <input type="hidden" id="updatePRecipeId" name="updatePRecipeId">
+      <label>Input Rate</label> <input type="text" id="update-rate" name="updateRate">
+      <label>Input Part</label>
+      <select name="update-RP-part-ajax" id="update-RP-part-ajax">
+        <option parts-value="">Select a Part</option>
+        {{#each parts}}
+        <option value={{this.PartID}}>{{this.PartName}}</option>
+        {{/each}}
+      </select> 
+      <input type="submit">
+    </form>
+</div>
+
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <legend><strong>Delete PartsRecipes</strong></legend>
+  <fieldset class="fields">      
+    <p>Are you sure you wish to delete the this PartRecipe?</p>
+    <form id="deletePR-ajax">
+      <input type="text" id="deleteItemId" name="deleteItemId">  
+      <input type="button" value="Delete the PRecipe" onClick="deletePR()">
+      <input type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div><!-- delete -->
+</body>
+
+<script src="/js/common.js"></script>
+<script src="/js/addPartsRecipes.js"></script>
+<script src="/js/deletepPartsRecipes.js"></script>
+<script src="/js/updatePartsRecipes.js"></script>

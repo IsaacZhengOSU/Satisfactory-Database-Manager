@@ -1,0 +1,96 @@
+<body onload="browsePeople()">
+<h1>Recipes</h1>
+
+[ <a href="partsRecipes">PartsRecipes</a> | <a href="items">Parts</a> | <a href="machines">Machines</a> | <a href="recipes">Recipes</a> ]
+
+<div id="browse">
+  <table id="recipeTable" border="1" cellpadding="5">
+    <tr>
+      <th><button onClick="newItem()">New</button></th>
+      <th>Delete Recipe</th>
+      <th>Part Produced</th>
+      <th>Alternate Recipe</th>
+      <th>Production Rate</th>
+      <th>Machine</th>
+    </tr>
+    {{#each data}}
+    <tr data-value={{this.RecipeID}}>
+      <td><button onClick="showRecipeUpdate('{{this.AlternateRecipe}}',{{this.[Production Rate]}},{{this.RecipeID}})">Edit</button></td>
+      <td><button onclick="showDelete('{{this.[Part Produced]}}','{{this.RecipeID}}')">Delete Recipe</button></td>
+      <td>{{this.[Part Produced]}}</td>
+      <td>{{this.AlternateRecipe}}</td>
+      <td>{{this.[Production Rate]}}</td>
+      <td>{{this.MachineName}}</td>
+    </tr> 
+    {{/each}}
+  </table>
+</div> <!-- browse -->
+
+<!-- insert -->
+<div id="insert">
+  <legend><strong>Add recipe</strong></legend>
+  <fieldset class="fields">
+    <form id="addRecipe-ajax">
+      <select name="input-PartProduced" id="input-PartProduced-ajax">
+          <option parts-value="">Select part</option>
+          {{#each parts}}
+          <option value="{{this.PartID}}">{{this.PartName}}</option>
+          {{/each}}
+        </select> 
+      <label>Alternate Recipe</label> <input type="text" id="AlternateRecipe" name="AlternateRecipe">
+      <label>Production Rate</label> <input type="text" id="ProductionRate" name="ProductionRate">
+      <select name="input-Machine" id="input-Machine-ajax">
+          <option machines-value="">Select machine</option>
+          {{#each machines}}
+          <option value="{{this.MachineID}}">{{this.MachineName}}</option>
+          {{/each}}
+        </select> 
+      <input class="btn" type="submit" id="addRecipeBtn" value="Add the recipe">
+      <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div>
+
+<!-- update -->
+<p>&nbsp;</p>
+<div id="update">
+  <h2>Update Recipe</h2>
+    <form id="updateRecipe-ajax">
+        <input type="hidden" id="updateRecipeId" name="updateRecipeId">
+        <select name="update-Part" id="update-Part-ajax">
+          <option parts-value="">Select part</option>
+          {{#each parts}}
+          <option value="{{this.PartID}}">{{this.PartName}}</option>
+          {{/each}}
+        </select>    
+        <label for="update-Recipe">Alternate Recipe: </label> <input type="text" name="update-Alternate" id="update-Alternate">
+        <label for="update-Recipe">Production Rate: </label> <input type="text" name="update-Production" id="update-Production">        
+        <select name="update-Machine" id="update-Machine-ajax">
+          <option machines-value="">Select machine</option>
+          {{#each machines}}
+          <option value="{{this.MachineID}}">{{this.MachineName}}</option>
+          {{/each}}
+        </select>    
+        <input type="submit">
+    </form>
+</div>
+
+<!-- delete -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <legend><strong>Delete Recipe</strong></legend>
+  <fieldset class="fields">      
+    <p>Are you sure you wish to delete the following Recipe?</p>
+    <form id="deleteRecipe-ajax">
+      <input type="hidden" id="deleteItemId" name="deleteItemId">
+      <label for="itemName">Item:</label> <input type="text" id="deleteItemName" name="deleteItemName">      
+      <input type="button" value="Delete the recipe" onClick="deleteR()">
+      <input type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div>
+</body>
+<script src="/js/common.js"></script>
+<script src="/js/addRecipe.js"></script>
+<script src="/js/deleteRecipe.js"></script>
+<script src="/js/updateRecipe.js"></script>

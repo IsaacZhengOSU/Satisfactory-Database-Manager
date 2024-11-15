@@ -1,0 +1,61 @@
+<body onload="browsePeople()">
+<h1>Parts</h1>
+
+[ <a href="partsRecipes">PartsRecipes</a> | <a href="items">Parts</a> | <a href="machines">Machines</a> | <a href="recipes">Recipes</a> ]
+
+<div id="browse">
+  <table id="partTable" border="1" cellpadding="5">
+    <tr>
+      <th><button onClick="newItem()">New</button></th>
+      <th>Delete Part</th>
+      <th>Part</th>
+    </tr>  
+    {{#each data}}
+    <tr data-value={{this.PartID}}>
+      <td><button onClick="showPartUpdate('{{this.Part}}','{{this.PartID}}')">Edit</button></td>
+      <td><button onclick="showDelete('{{this.Part}}', {{this.PartID}})">Delete Part</button></td>
+      <td>{{this.Part}}</td>
+    </tr>  
+    {{/each}}
+  </table>
+</div> <!-- browse -->
+
+<div id="insert">
+  <legend><strong>Add part</strong></legend>
+  <fieldset class="fields">
+    <form id="addPart-ajax">      
+      <label>Part Name</label> <input type="text" id="PartName" name="PartName">
+      <input class="btn" type="submit" id="addPartBtn" value="Add the part">
+      <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update">
+  <h2>Update Part</h2>
+    <form id="updatePart-ajax">
+        <input type="hidden" id="updatePartId" name="updatePartId">
+        <label for="input-Part">Part Name: </label> <input size="10" type="text" name="input-Part" id="input-Part-update">
+        <input type="submit">
+    </form>
+</div><!-- update -->
+
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <legend><strong>Delete part</strong></legend>
+  <fieldset class="fields">      
+    <p>Are you sure you wish to delete the following part?</p>
+    <form id="deletePart-ajax">
+      <input type="hidden" id="deleteItemId" name="deleteItemId">
+      <label for="itemName">Item:</label> <input type="text" id="deleteItemName" name="deleteItemName">      
+      <input type="button" value="Delete the part" onClick="deleteP()">
+      <input type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div><!-- delete -->
+</body>
+<script src="/js/common.js"></script>
+<script src="/js/addPart.js"></script>
+<script src="/js/deletePart.js"></script>
+<script src="/js/updatePart.js"></script>

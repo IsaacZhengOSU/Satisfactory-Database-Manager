@@ -1,0 +1,67 @@
+<body onload="browsePeople()">
+<h1>Machines</h1>
+
+[ <a href="partsRecipes">PartsRecipes</a> | <a href="items">Parts</a> | <a href="machines">Machines</a> | <a href="recipes">Recipes</a> ]
+
+<div id="browse">
+  <table id="machineTable" border="1" cellpadding="5">
+    <tr>
+      <th><button onClick="newItem()">New</button></th>
+      <th>Delete Machine</th>
+      <th>Machine</th>
+      <th>Energy</th>
+    </tr>
+    {{#each data}}
+    <tr data-value={{this.MachineID}}>
+      <td><button onClick="showMachineUpdate('{{this.Machine}}',{{this.[Engergy(MW)]}},{{this.MachineID}})">Edit</button></td>
+      <td><button onclick="showDelete('{{this.Machine}}',{{this.MachineID}})">Delete Machine</button></td>
+      <td>{{this.Machine}}</td>
+      <td>{{this.[Engergy(MW)]}}</td>
+    </tr>
+    {{/each}}
+  </table>
+</div> <!-- browse -->
+
+<div id="insert">
+  <legend><strong>Add Machine</strong></legend>
+  <fieldset class="fields">
+    <form id="addMachine-ajax">      
+      <label>Machine Name</label> <input type="text" id="MachineName" name="MachineName">
+      <label>Energy</label> <input type="text" id="MachineEnergy" name="MachineEnergy">
+      <input class="btn" type="submit" id="addPartBtn" value="Add the machine">
+      <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update">
+  <h2>Update Machine</h2>
+    <form id="updateMachine-ajax">
+        <input type="hidden" id="updateMachineId" name="updateMachineId">
+        <label for="input-machinename">Machine Name: </label> <input size="10" type="text" name="input-machinename" id="input-machinename-update">
+        <label for="input-energy">Energy: </label> <input size="10" type="text" name="input-energy" id="input-energy-update">
+        <input type="submit">
+
+    </form>
+</div><!-- update -->
+
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <legend><strong>Delete Machine</strong></legend>
+  <fieldset class="fields">      
+    <p>Are you sure you wish to delete the following machine?</p>
+    <form id="deleteMachine-ajax">
+      <input type="hidden" id="deleteItemId" name="deleteItemId">
+      <label for="itemName">Item:</label> <input type="text" id="deleteItemName" name="deleteItemName">      
+      <input type="button" value="Delete the machine" onClick="deleteM()">
+      <input type="button" value="cancel" onClick="browsePeople()">
+    </form> 
+  </fieldset>
+</div><!-- delete -->
+</body>
+
+<script src="/js/common.js"></script>
+<script src="/js/addMachine.js"></script>
+<script src="/js/deleteMachine.js"></script>
+<script src="/js/updateMachine.js"></script>

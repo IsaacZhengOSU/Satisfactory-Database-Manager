@@ -1,0 +1,1 @@
+# Satisfactory-Database-Manager
